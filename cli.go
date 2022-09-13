@@ -25,7 +25,7 @@ func (c *CLI) Run(args []string) int {
 		return ExitCodeParseFlagError
 	}
 	if version {
-		fmt.Fprintf(c.errStream, "gicomi version %v\n", version)
+		fmt.Fprintf(c.errStream, "gicomi version %v\n", Version)
 		return ExitCodeOk
 	}
 	fmt.Fprintf(c.outStream, "work\n")
