@@ -29,9 +29,9 @@ func (c *CLI) Run(args []string) int {
 		return ExitCodeParseFlagError
 	}
 	if version {
-		fmt.Fprintf(c.errStream, "gicom --version %v\n", Version)
+		fmt.Fprintf(c.errStream, "gicom version %v\n", Version)
 		return ExitCodeOk
 	}
-	fmt.Fprintf(c.outStream, "work\n")
+	fmt.Fprintf(c.outStream, "no args selected \n")
 	return ExitCodeOk
 }

@@ -15,7 +15,7 @@ func TestRunVersionFlag(t *testing.T) {
 	if status != ExitCodeOk {
 		t.Errorf("ExitStatus=%d, want %d", status, ExitCodeOk)
 	}
-	expected := fmt.Sprintf("gicom --version %s\n", Version)
+	expected := fmt.Sprintf("gicom version %s\n", Version)
 	if !strings.Contains(errStream.String(), expected) {
 		t.Errorf("Output=%q, want %q", errStream.String(), expected)
 	}
