@@ -1,3 +1,3 @@
-module github.com/lll-lll-lll-lll/gitcom
+module github.com/lll-lll-lll-lll/gicom
 
 go 1.18
