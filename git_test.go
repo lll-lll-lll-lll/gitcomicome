@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/go-git/go-git/v5/storage/memory"
 )
@@ -29,14 +30,14 @@ func TestGitClone(t *testing.T) {
 	CheckIfError(err)
 
 	// ... retrieves the commit history
-	// since := time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC)
 	today := time.Now()
-	y := today.AddDate(0, 0, -1)
-	cIter, err := r.Log(&git.LogOptions{From: ref.Hash(), Since: &y, Until: &today})
-	CheckIfError(err)
+	y := today.AddDate(0, 0, -3)
+
+	commits := Commits(r, y, today, ref)
 
 	// ... just iterates over the commits, printing it
-	err = cIter.ForEach(func(c *object.Commit) error {
+	err = commits.ForEach(func(c *object.Commit) error {
+		fmt.Println("commit")
 		fmt.Println(c)
 
 		return nil
@@ -69,4 +70,10 @@ func Info(format string, args ...interface{}) {
 // Warning should be used to display a warning
 func Warning(format string, args ...interface{}) {
 	fmt.Printf("\x1b[36;1m%s\x1b[0m\n", fmt.Sprintf(format, args...))
+}
+
+func Commits(r *git.Repository, start, until time.Time, ref *plumbing.Reference) object.CommitIter {
+	cIter, err := r.Log(&git.LogOptions{From: ref.Hash(), Since: &start, Until: &until})
+	CheckIfError(err)
+	return cIter
 }
