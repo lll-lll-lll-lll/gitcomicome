@@ -16,6 +16,10 @@ type CLI struct {
 	outStream, errStream io.Writer
 }
 
+func NewCLI(outStream io.Writer, errStream io.Writer) *CLI {
+	return &CLI{outStream: outStream, errStream: errStream}
+}
+
 func (c *CLI) Run(args []string) int {
 	var version bool
 	flags := flag.NewFlagSet("gicom", flag.ContinueOnError)
