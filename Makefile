@@ -1,4 +1,3 @@
-# コマンド一覧
 .PHONY: help
 help:
 	@cat Makefile
