@@ -25,7 +25,7 @@ func SelfGitRepository() *git.Repository {
 	return s
 }
 
-func SelfCommitLogs(s *git.Repository) object.CommitIter {
+func SelfAllCommitLogs(s *git.Repository) object.CommitIter {
 	c, err := s.CommitObjects()
 	if err != nil {
 		CheckIfError(err)
