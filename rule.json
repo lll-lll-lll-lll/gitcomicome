@@ -1,6 +1,7 @@
 {
-    "rule": [
+    "Rule": [
         "rule_1",
         "rule_2"
-    ]
+    ],
+    "Rule2": "FalseRule"
 }
