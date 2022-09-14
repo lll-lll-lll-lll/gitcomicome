@@ -65,5 +65,10 @@ func TestPlainSelfOpen(t *testing.T) {
 			return nil
 		})
 	})
+	t.Run("load json function", func(t *testing.T) {
+		j := LoadJson("./rule.json")
+		d := j.(map[string]interface{})["rule"]
+		t.Log(d)
+	})
 
 }
