@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"time"
 
@@ -32,9 +33,13 @@ func SelfAllCommitLogs(s *git.Repository) object.CommitIter {
 	return c
 }
 
-func LoadJson(i string) interface{} {
+func LoadJsoWithnValidate(i string) (interface{}, error) {
 	b, _ := ioutil.ReadFile(i)
 	var j interface{}
 	_ = json.Unmarshal(b, &j)
-	return j
+	a := j.(map[string]interface{})["Rule"]
+	if a == nil {
+		return nil, errors.New("error not have `Rule` property")
+	}
+	return a, nil
 }

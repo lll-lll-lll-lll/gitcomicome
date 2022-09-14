@@ -66,9 +66,10 @@ func TestPlainSelfOpen(t *testing.T) {
 		})
 	})
 	t.Run("load json function", func(t *testing.T) {
-		j := LoadJson("./rule.json")
-		d := j.(map[string]interface{})["rule"]
-		t.Log(d)
+		j, err := LoadJsoWithnValidate("./rule.json")
+		if err != nil {
+			t.Error(err)
+		}
+		t.Log(j)
 	})
-
 }
