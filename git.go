@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -28,4 +30,11 @@ func SelfAllCommitLogs(s *git.Repository) object.CommitIter {
 		CheckIfError(err)
 	}
 	return c
+}
+
+func LoadJson(i string) interface{} {
+	b, _ := ioutil.ReadFile(i)
+	var j interface{}
+	_ = json.Unmarshal(b, &j)
+	return j
 }
