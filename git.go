@@ -33,7 +33,7 @@ func SelfAllCommitLogs(s *git.Repository) object.CommitIter {
 	return c
 }
 
-func LoadJsoWithnValidate(i string) (interface{}, error) {
+func LoadJsonWithnValidate(i string) (interface{}, error) {
 	b, _ := ioutil.ReadFile(i)
 	var j interface{}
 	_ = json.Unmarshal(b, &j)
