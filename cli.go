@@ -6,7 +6,6 @@ import (
 	"io"
 )
 
-// 終了コード
 const (
 	ExitCodeOk             = 0
 	ExitCodeParseFlagError = 1
