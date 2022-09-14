@@ -37,9 +37,13 @@ func LoadJsonWithnValidate(i string) (interface{}, error) {
 	b, _ := ioutil.ReadFile(i)
 	var j interface{}
 	_ = json.Unmarshal(b, &j)
-	a := j.(map[string]interface{})["Rule"]
-	if a == nil {
+	r := j.(map[string]interface{})["Rule"]
+	if r == nil {
 		return nil, errors.New("error not have `Rule` property")
 	}
-	return a, nil
+	d := r.(map[string]interface{})["Separator"]
+	if d == nil {
+		return nil, errors.New("error not have `Separator` property in `Rule` property")
+	}
+	return r, nil
 }

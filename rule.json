@@ -1,7 +1,6 @@
 {
-    "Rule": [
-        "rule_1",
-        "rule_2"
-    ],
+    "Rule": {
+        "Separator": "test Separator"
+    },
     "Rule2": "FalseRule"
 }
