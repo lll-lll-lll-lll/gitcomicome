@@ -29,6 +29,13 @@ Options:
 ...
 ```
 
+## 動機
+cli作ったことなかったので、作ってみたくなった<br>
+指定リポジトリのコミット履歴から指定の文字列にフィルタリングする<br>
+アプリ開発進めるために一旦stop10月から再開<br>
+理想はコミットの書き方にルールを設ける<br>
+最初は文字列のマッチから入った<br>
+
 ## Reference
 [Go言語でテストしやすいコマンドラインツールをつくる](https://deeeet.com/writing/2014/12/18/golang-cli-test/)<br>
 [homebrewに上げる方法](https://qiita.com/kcwebapply/items/4777dfc9151ebb3e8a19)
