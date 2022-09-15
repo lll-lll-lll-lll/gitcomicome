@@ -31,6 +31,9 @@ func (c *CLI) Run(args []string) int {
 	cs := SelfAllCommitLogs(git)
 	flags := flag.NewFlagSet("gicom", flag.ContinueOnError)
 	flags.SetOutput(c.errStream)
+	flags.Usage = func() {
+		fmt.Fprintf(c.errStream, usage, "gicomi")
+	}
 	flags.BoolVar(&version, "version", false, "print version")
 	flags.StringVar(&filter, "filter", "", "filter messages")
 	flags.StringVar(&mode, "mode", "", "mode")
@@ -78,3 +81,12 @@ func printJsonAny[S ~[]e, e any](c *CLI, f S) {
 		fmt.Fprintf(c.errStream, "%s\n", out.String())
 	}
 }
+
+const usage = `
+Usage: %s [options] slug path
+  
+Options:
+  -version            		now version
+  -filter=<head comment>	head string of git comment
+  -mode=<option>      		now "comment", "committer". (with filter option)
+`
