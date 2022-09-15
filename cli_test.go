@@ -30,5 +30,14 @@ func TestRunVersionFlag(t *testing.T) {
 			t.Errorf("ExitStatus=%d, want %d", status, ExitCodeOk)
 		}
 	})
+	t.Run("mode", func(t *testing.T) {
+		outStream, errStream := new(bytes.Buffer), new(bytes.Buffer)
+		cli := NewCLI(outStream, errStream)
+		args := strings.Split("gicom --mode comment --filter modify", " ")
+		status := cli.Run(args)
+		if status != ExitCodeOk {
+			t.Errorf("ExitStatus=%d, want %d", status, ExitCodeOk)
+		}
+	})
 
 }
