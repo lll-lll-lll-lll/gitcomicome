@@ -4,5 +4,5 @@ help:
 
 .PHONY: gicom
 gicom:
-	go build .
+	go build -o gitcomicome 
 	./gicom --version
