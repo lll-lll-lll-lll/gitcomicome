@@ -25,6 +25,7 @@ func (c *CLI) Run(args []string) int {
 	var (
 		version bool
 		filter  string
+		mode    string
 	)
 	git := SelfGitRepository()
 	cs := SelfAllCommitLogs(git)
@@ -32,6 +33,7 @@ func (c *CLI) Run(args []string) int {
 	flags.SetOutput(c.errStream)
 	flags.BoolVar(&version, "version", false, "print version")
 	flags.StringVar(&filter, "filter", "", "filter messages")
+	flags.StringVar(&mode, "mode", "", "mode")
 
 	if err := flags.Parse(args[1:]); err != nil {
 		return ExitCodeParseFlagError
@@ -40,21 +42,39 @@ func (c *CLI) Run(args []string) int {
 		fmt.Fprintf(c.errStream, "gicom version %v\n", Version)
 		return ExitCodeOk
 	}
+	if mode != "" {
+		if filter == "" {
+			fmt.Fprintf(c.errStream, "not set filter")
+			return ExitCodeParseFlagError
+		}
+	}
 	if filter != "" {
 		fmt.Fprintf(c.errStream, "filter text is %s\n", filter)
 		f := FilterCommits(filter, cs)
-		for _, e := range f {
-			b, _ := json.Marshal(e)
-			var out bytes.Buffer
-			if err := json.Indent(&out, b, "", "  "); err != nil {
-				fmt.Fprintf(c.errStream, "filter err %s\n", err)
-				return ExitCodeParseFlagError
-			}
-			fmt.Fprintf(c.errStream, "%s\n", out.String())
+		switch mode {
+		case "comment":
+			g := GetComments(f)
+			printJsonAny(c, g)
+		case "committer":
+			gc := GetCommitters(f)
+			printJsonAny(c, gc)
+		default:
+			printJsonAny(c, f)
 		}
 
 		return ExitCodeOk
 	}
 
 	return ExitCodeOk
+}
+
+func printJsonAny[S ~[]e, e any](c *CLI, f S) {
+	for _, e := range f {
+		b, _ := json.Marshal(e)
+		var out bytes.Buffer
+		if err := json.Indent(&out, b, "", "  "); err != nil {
+			fmt.Fprintf(c.errStream, "filter err %s\n", err)
+		}
+		fmt.Fprintf(c.errStream, "%s\n", out.String())
+	}
 }
