@@ -31,3 +31,4 @@ Options:
 
 ## Reference
 [Go言語でテストしやすいコマンドラインツールをつくる](https://deeeet.com/writing/2014/12/18/golang-cli-test/)<br>
+[homebrewに上げる方法](https://qiita.com/kcwebapply/items/4777dfc9151ebb3e8a19)
