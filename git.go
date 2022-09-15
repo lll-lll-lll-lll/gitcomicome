@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
+	"regexp"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -33,7 +35,7 @@ func SelfAllCommitLogs(s *git.Repository) object.CommitIter {
 	return c
 }
 
-func loadJsonWithnValidate(i string) (interface{}, error) {
+func loadJsonWithValidate(i string) (interface{}, error) {
 	b, _ := ioutil.ReadFile(i)
 	var j interface{}
 	_ = json.Unmarshal(b, &j)
@@ -46,4 +48,31 @@ func loadJsonWithnValidate(i string) (interface{}, error) {
 		return nil, errors.New("error not have `Separator` property in `Rule` property")
 	}
 	return r, nil
+}
+
+func FilterCommits(filter string, c object.CommitIter) []*object.Commit {
+	var s []*object.Commit
+	c.ForEach(func(c *object.Commit) error {
+		b := CheckRegexp(fmt.Sprintf("^%s", filter), c.Message)
+		if b {
+			s = append(s, c)
+		}
+		return nil
+	})
+	return s
+}
+
+func GetComments(c []*object.Commit) []string {
+	var s []string
+	for _, x := range c {
+		s = append(s, x.Message)
+	}
+	return s
+}
+func CheckRegexp(pattern, str string) bool {
+	m, err := regexp.Match(pattern, []byte(str))
+	if err != nil {
+		return false
+	}
+	return m
 }

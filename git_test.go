@@ -51,25 +51,34 @@ func TestGitClone(t *testing.T) {
 }
 
 func TestPlainSelfOpen(t *testing.T) {
+	s, err := git.PlainOpen("./")
+	if err != nil {
+		t.Log(err)
+	}
+	a, err := s.CommitObjects()
+	if err != nil {
+		t.Log(err)
+	}
 	t.Run("open self .git dir", func(t *testing.T) {
-		s, err := git.PlainOpen("./")
-		if err != nil {
-			t.Log(err)
-		}
-		a, err := s.CommitObjects()
-		if err != nil {
-			t.Log(err)
-		}
+
 		a.ForEach(func(c *object.Commit) error {
 			t.Log(c.Message)
 			return nil
 		})
 	})
 	t.Run("load json function", func(t *testing.T) {
-		j, err := loadJsonWithnValidate("./rule.json")
+		j, err := loadJsonWithValidate("./rule.json")
 		if err != nil {
 			t.Error(err)
 		}
 		t.Log(j)
+	})
+	t.Run("", func(t *testing.T) {
+		filter := "modify"
+		s := FilterCommits(filter, a)
+		a := GetComments(s)
+		for _, l := range a {
+			fmt.Println(l)
+		}
 	})
 }
