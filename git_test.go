@@ -66,7 +66,7 @@ func TestPlainSelfOpen(t *testing.T) {
 		})
 	})
 	t.Run("load json function", func(t *testing.T) {
-		j, err := LoadJsonWithnValidate("./rule.json")
+		j, err := loadJsonWithnValidate("./rule.json")
 		if err != nil {
 			t.Error(err)
 		}
