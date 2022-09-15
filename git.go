@@ -69,6 +69,15 @@ func GetComments(c []*object.Commit) []string {
 	}
 	return s
 }
+
+func GetCommitters(c []*object.Commit) []object.Signature {
+	var s []object.Signature
+	for _, x := range c {
+		s = append(s, x.Committer)
+	}
+	return s
+}
+
 func CheckRegexp(pattern, str string) bool {
 	m, err := regexp.Match(pattern, []byte(str))
 	if err != nil {
