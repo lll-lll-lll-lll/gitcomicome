@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"regexp"
 	"time"
 
@@ -19,6 +20,18 @@ func SpanCommitLogs(r *git.Repository, start, until time.Time, ref *plumbing.Ref
 	return cIter
 }
 
+func GitCloneToTmpRepo(url, tmpRepo string) (string, *git.Repository) {
+	dir, err := ioutil.TempDir(".", tmpRepo)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r, err := git.PlainClone(dir, false, &git.CloneOptions{
+		URL: url,
+	})
+	return dir, r
+}
+
 func SelfGitRepository() *git.Repository {
 	s, err := git.PlainOpen("./")
 	if err != nil {
@@ -27,7 +40,7 @@ func SelfGitRepository() *git.Repository {
 	return s
 }
 
-func SelfAllCommitLogs(s *git.Repository) object.CommitIter {
+func AllCommitLogs(s *git.Repository) object.CommitIter {
 	c, err := s.CommitObjects()
 	if err != nil {
 		CheckIfError(err)

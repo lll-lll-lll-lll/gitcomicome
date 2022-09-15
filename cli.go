@@ -6,6 +6,9 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"os"
+
+	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
 const (
@@ -26,9 +29,10 @@ func (c *CLI) Run(args []string) int {
 		version bool
 		filter  string
 		mode    string
+		url     string
+		cs      object.CommitIter
 	)
-	git := SelfGitRepository()
-	cs := SelfAllCommitLogs(git)
+
 	flags := flag.NewFlagSet("gicom", flag.ContinueOnError)
 	flags.SetOutput(c.errStream)
 	flags.Usage = func() {
@@ -37,14 +41,26 @@ func (c *CLI) Run(args []string) int {
 	flags.BoolVar(&version, "version", false, "print version")
 	flags.StringVar(&filter, "filter", "", "filter messages")
 	flags.StringVar(&mode, "mode", "", "mode")
+	flags.StringVar(&url, "url", "", "git clone url")
 
 	if err := flags.Parse(args[1:]); err != nil {
 		return ExitCodeParseFlagError
 	}
+
 	if version {
 		fmt.Fprintf(c.errStream, "gicom version %v\n", Version)
 		return ExitCodeOk
 	}
+
+	if url != "" {
+		dir, git := GitCloneToTmpRepo(url, "example-clone")
+		defer os.RemoveAll(dir) // clean up
+		cs = AllCommitLogs(git)
+	} else {
+		git := SelfGitRepository()
+		cs = AllCommitLogs(git)
+	}
+
 	if mode != "" {
 		if filter == "" {
 			fmt.Fprintf(c.errStream, "not set filter")
@@ -86,7 +102,9 @@ const usage = `
 Usage: %s [options] slug path
   
 Options:
+  -help or h 	 		    help
   -version            		now version
   -filter=<head comment>	head string of git comment
   -mode=<option>      		now "comment", "committer". (with filter option)
+  -url=<url>				git clone url
 `
