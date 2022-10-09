@@ -66,13 +66,6 @@ func TestPlainSelfOpen(t *testing.T) {
 			return nil
 		})
 	})
-	t.Run("load json function", func(t *testing.T) {
-		j, err := loadJsonWithValidate("./rule.json")
-		if err != nil {
-			t.Error(err)
-		}
-		t.Log(j)
-	})
 	t.Run("", func(t *testing.T) {
 		filter := "modify"
 		s := FilterCommits(filter, a)
