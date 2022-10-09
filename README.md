@@ -37,3 +37,9 @@ cli作ったことなかったので、作ってみたくなった<br>
 ## Reference
 [Go言語でテストしやすいコマンドラインツールをつくる](https://deeeet.com/writing/2014/12/18/golang-cli-test/)<br>
 [homebrewに上げる方法](https://qiita.com/kcwebapply/items/4777dfc9151ebb3e8a19)
+
+
+## リリースまでの流れ
+- コードの変更
+- タグ作成. git tag -a v0.1.2 -m 'TestRelease'
+- tag push. git push origin v0.1.2 
