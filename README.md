@@ -10,8 +10,12 @@ Options:
 ```
 
 # Install
-`brew tap lll-lll-lll-lll/gitcomicome`<br>
-`brew install lll-lll-lll-lll/gitcomicome/gitcomicome`
+```sh
+brew tap lll-lll-lll-lll/gitcomicome
+```
+```sh
+brew install lll-lll-lll-lll/gitcomicome/gitcomicome
+```
 
 # howto
 
