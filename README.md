@@ -1,7 +1,7 @@
 # GiCom
 Check the commit history of your repository or URL's repository.
 ```txt
-Usage: gicom [options] slug path
+Usage: gitcomicome [options] slug path
   
 Options:
   -version            		now version
@@ -11,12 +11,12 @@ Options:
 
 # Install
 `brew tap lll-lll-lll-lll/gitcomicome`<br>
-`brew install lll-lll-lll-lll/gitcomicome`
+`brew install lll-lll-lll-lll/gitcomicome/gitcomicome`
 
 # howto
 
 ```bash
-./gicom -url https://github.com/lll-lll-lll-lll/webvtt-reader -filter modify -mode comment
+gitcomicome -url https://github.com/lll-lll-lll-lll/webvtt-reader -filter modify -mode comment
 ```
 
 ```
