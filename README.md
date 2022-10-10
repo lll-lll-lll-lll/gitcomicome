@@ -9,6 +9,10 @@ Options:
   -mode=<option>      		now "comment", "committer". (with filter option)
 ```
 
+# Install
+`brew tap lll-lll-lll-lll/gitcomicome`<br>
+`brew install lll-lll-lll-lll/gitcomicome`
+
 # howto
 
 ```bash
