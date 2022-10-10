@@ -26,3 +26,14 @@ archives:
         format: zip
 release:
   prerelease: auto
+
+brews:
+  - tap:
+      owner: lll-lll-lll-lll
+      name: homebrew-gitcomicome
+      token: "{{ .Env.CLI_TOKEN }}"
+    folder: Formula
+    homepage: https://github.com/lll-lll-lll-lll/gitcomicome
+    description: gitcomicome
+    test: |
+      system "#{bin}/gitcomicome --version"
