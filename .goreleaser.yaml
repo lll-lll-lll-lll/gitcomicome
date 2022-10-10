@@ -31,7 +31,7 @@ brews:
   - tap:
       owner: lll-lll-lll-lll
       name: homebrew-gitcomicome
-      token: "{{ .Env.CLI_TOKEN }}"
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     folder: Formula
     homepage: https://github.com/lll-lll-lll-lll/gitcomicome
     description: gitcomicome
